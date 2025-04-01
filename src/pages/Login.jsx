@@ -1,5 +1,10 @@
+import { useState } from 'react'
 import './Login.css'
 function Login() {
+
+  const [getUser, setUser] = useState("")
+  const [getPassword, setPassword] = useState("")
+
   return (
     <div className="container">
       <input id="signup_toggle" type="checkbox" />
