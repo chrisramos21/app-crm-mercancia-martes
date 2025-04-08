@@ -1,10 +1,14 @@
 import { useState } from 'react'
 import { usuarios } from '../services/database'
 import './Login.css'
+import { alertaRedireccion, alertaError } from '../helpers/funciones'
+import { useNavigate } from 'react-router-dom'
 function Login() {
 
   const [getUser, setUser] = useState("")
   const [getPassword, setPassword] = useState("")
+
+  let redireccion = useNavigate()
 
   function buscarUsuario(){
     let usuarioEncontrado = usuarios.find((item) => getUser == item.usuario && 
@@ -13,9 +17,9 @@ function Login() {
   } 
   function iniciarSesion(){
     if(buscarUsuario()){
-      alert("Bienvenido ...")
+      alertaRedireccion(redireccion, "Bienvenido al sistema", '/home')
     }else{
-      alert("Usuario y/o contraseña incorrectos o no existen")
+      alertaError()
     }
   }
 
