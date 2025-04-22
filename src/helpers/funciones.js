@@ -28,3 +28,7 @@ export function alertaError(){
         footer: '<a href="#">Why do I have this issue?</a>'
       });
 }
+export function generarToken(){
+    let token = "token_" + Math.random().toString(36).substring(2) + "-" + Math.random().toString(36).substring(2);
+    return token;
+}
