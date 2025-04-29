@@ -6,27 +6,27 @@ import {
   generarToken,
 } from "../helpers/funciones";
 import { useNavigate } from "react-router-dom";
-let apiUsuario = 'https://back-json-server-martes.onrender.com/usuarios'
-
+let apiUsuario = "https://back-json-server-martes.onrender.com/usuarios";
 
 function Login() {
   const [getUser, setUser] = useState("");
   const [getPassword, setPassword] = useState("");
+  const [getName, setName] = useState("");
+  const [getEmail, setEmail] = useState("");
   const [usuarios, setUsuarios] = useState([]);
   let redireccion = useNavigate();
 
-  function getUsuarios(){
+  function getUsuarios() {
     fetch(apiUsuario)
-    .then((response)=> response.json())
-    .then((data)=> setUsuarios(data))
-    .catch((error)=> console.log(error))
+      .then((response) => response.json())
+      .then((data) => setUsuarios(data))
+      .catch((error) => console.log(error));
   }
 
-  useEffect(()=>{
-    getUsuarios()
-  }, [])
+  useEffect(() => {
+    getUsuarios();
+  }, []);
 
-  
   //console.log(usuarios)
 
   function buscarUsuario() {
@@ -43,6 +43,24 @@ function Login() {
       alertaRedireccion(redireccion, "Bienvenido al sistema", "/home");
     } else {
       alertaError();
+    }
+  }
+  function registrarUsuario(){
+    let auth = usuarios.some((item)=>item.correo == getEmail || item.usuario == getUser)
+    if(auth){
+      alertaError()
+    }else{
+      let usuario = {
+        nombre: getName,
+        correo: getEmail,
+        usuario: getUser,
+        contrasena: getPassword,
+      }
+      fetch(apiUsuario, {
+        method: "POST",
+        body: JSON.stringify(usuario),
+      })
+
     }
   }
 
@@ -76,11 +94,31 @@ function Login() {
         </div>
         <div className="form_back">
           <div className="form_details">SignUp</div>
-          <input type="text" className="input" placeholder="Firstname" />
-          <input type="text" className="input" placeholder="Username" />
-          <input type="text" className="input" placeholder="Password" />
-          <input type="text" className="input" placeholder="Confirm Password" />
-          <button className="btn">Signup</button>
+          <input
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            className="input"
+            placeholder="Firstname"
+          />
+          <input
+            onChange={(e) => setUser(e.target.value)}
+            type="text"
+            className="input"
+            placeholder="Username"
+          />
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            type="text"
+            className="input"
+            placeholder="Password"
+          />
+          <input
+            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            className="input"
+            placeholder="Email"
+          />
+          <button type="button" onClick={registrarUsuario} className="btn">Signup</button>
           <span className="switch">
             Already have an account?
             <label for="signup_toggle" className="signup_tog">
