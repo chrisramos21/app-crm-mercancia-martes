@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { usuarios } from "../services/database";
+import { useEffect, useState } from "react";
 import "./Login.css";
 import {
   alertaRedireccion,
@@ -7,11 +6,28 @@ import {
   generarToken,
 } from "../helpers/funciones";
 import { useNavigate } from "react-router-dom";
+let apiUsuario = 'https://back-json-server-martes.onrender.com/usuarios'
+
+
 function Login() {
   const [getUser, setUser] = useState("");
   const [getPassword, setPassword] = useState("");
-
+  const [usuarios, setUsuarios] = useState([]);
   let redireccion = useNavigate();
+
+  function getUsuarios(){
+    fetch(apiUsuario)
+    .then((response)=> response.json())
+    .then((data)=> setUsuarios(data))
+    .catch((error)=> console.log(error))
+  }
+
+  useEffect(()=>{
+    getUsuarios()
+  }, [])
+
+  
+  //console.log(usuarios)
 
   function buscarUsuario() {
     let usuarioEncontrado = usuarios.find(
