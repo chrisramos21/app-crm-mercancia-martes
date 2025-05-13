@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./Login.css";
 import {
   alertaRedireccion,
-  alertaError,
+  alertaGeneral,
   generarToken,
 } from "../helpers/funciones";
 import { useNavigate } from "react-router-dom";
@@ -42,25 +42,28 @@ function Login() {
       localStorage.setItem("usuario", JSON.stringify(buscarUsuario()));
       alertaRedireccion(redireccion, "Bienvenido al sistema", "/home");
     } else {
-      alertaError();
+      alertaGeneral("Error", "Error de credenciales", "Error");
     }
   }
-  function registrarUsuario(){
-    let auth = usuarios.some((item)=>item.correo == getEmail || item.usuario == getUser)
-    if(auth){
-      alertaError()
-    }else{
+  function registrarUsuario() {
+    let auth = usuarios.some(
+      (item) => item.correo == getEmail || item.usuario == getUser
+    );
+    if (auth) {
+      alertaGeneral("Error", "Usuario ya existe en la base de datos", "Error");
+    } else {
       let usuario = {
         nombre: getName,
         correo: getEmail,
         usuario: getUser,
         contrasena: getPassword,
-      }
+      };
       fetch(apiUsuario, {
         method: "POST",
         body: JSON.stringify(usuario),
-      })
-
+      }).then(() => {
+        getUsuarios();
+      });
     }
   }
 
@@ -118,7 +121,9 @@ function Login() {
             className="input"
             placeholder="Email"
           />
-          <button type="button" onClick={registrarUsuario} className="btn">Signup</button>
+          <button type="button" onClick={registrarUsuario} className="btn">
+            Signup
+          </button>
           <span className="switch">
             Already have an account?
             <label for="signup_toggle" className="signup_tog">
