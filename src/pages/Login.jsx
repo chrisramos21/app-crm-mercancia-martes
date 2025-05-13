@@ -27,7 +27,6 @@ function Login() {
     getUsuarios();
   }, []);
 
-  //console.log(usuarios)
 
   function buscarUsuario() {
     let usuarioEncontrado = usuarios.find(
