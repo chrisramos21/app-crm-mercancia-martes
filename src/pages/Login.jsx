@@ -63,6 +63,7 @@ function Login() {
         body: JSON.stringify(usuario),
       }).then(() => {
         getUsuarios();
+        alertaGeneral("Registros exitoso","Ya puede ir a Login e ingresar sus credenciales","info")
       });
     }
   }
