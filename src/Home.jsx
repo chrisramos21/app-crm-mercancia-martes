@@ -1,6 +1,6 @@
 import "./Home.css";
-import { Outlet } from "react-router-dom";
 import MenuLateral from "./components/MenuLateral";
+import Contenido from "./components/Contenido";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
               <span>TrackX:</span> Logística inteligente, rastreo preciso.
             </h2>
           </section>
-          <Outlet/>
+          <Contenido/>
         </main>
       </div>
     </div>

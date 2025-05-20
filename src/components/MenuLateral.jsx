@@ -28,7 +28,7 @@ const MenuLateral = () => {
         <Link className="aplicacion__menu-lateral-navegacion-item" to="envios">
           Gestión de envíos
         </Link>
-        <Link className="aplicacion__menu-lateral-navegacion-item" to="">
+        <Link className="aplicacion__menu-lateral-navegacion-item" to="clientes">
           Gestión de clientes
         </Link>
         <button

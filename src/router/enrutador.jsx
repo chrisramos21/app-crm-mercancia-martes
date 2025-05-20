@@ -1,7 +1,7 @@
 import Login from '../pages/Login'
 import Home from '../Home'
 import RutaProtegida from '../components/RutaProtegida'
-import Contenido from '../components/Contenido'
+import GestionEnvios from '../pages/GestionEnvios'
 export let enrutador = [
     {
         path: '/',
@@ -13,7 +13,11 @@ export let enrutador = [
         children:[
             {
                 path:"envios",
-                element:<Contenido/>
+                element:<GestionEnvios/>
+            },
+            {
+                path:"clientes",
+                element:<GestionEnvios/>
             }
         ]
     }
