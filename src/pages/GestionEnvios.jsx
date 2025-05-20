@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { alertaConfirmar } from "../helpers/funciones";
 let apiEnvios = "https://back-json-server-martes.onrender.com/envios";
 
 function GestionEnvios() {
@@ -21,6 +22,10 @@ function GestionEnvios() {
   }
 
   let enviosFiltrados = filtrarEnviosUsuario();
+
+  function eliminarEnvio(id){
+     alertaConfirmar(id, apiEnvios, getEnvios)
+  }
   return(
     <div className="cards">
         {
@@ -30,9 +35,9 @@ function GestionEnvios() {
                     <p>Nombre cliente: {usuarioLogueado.nombre}</p>
                     <p>Producto: {item.producto} </p>
                     <p>Destino: {item.destino}</p>
-                    <div>
-                        <button>Editar</button>
-                        <button>Eliminar</button>
+                    <div className="card__buttons">
+                        <button className="card__button">Editar</button>
+                        <button onClick={() => eliminarEnvio(item.id)} className="card__button">Eliminar</button>         
                     </div>
 
                 </div>
