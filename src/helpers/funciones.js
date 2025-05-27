@@ -39,7 +39,7 @@ export function alertaConfirmar(id, apiEnvios, getEnvios) {
     confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
-      fetch(apiEnvios + "/id" + id, {
+      fetch(apiEnvios + "/" + id,  {
       method: "DELETE"
     }).then(() => {
       getEnvios()
