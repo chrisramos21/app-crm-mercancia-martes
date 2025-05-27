@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { alertaConfirmar } from "../helpers/funciones";
+import { Link } from "react-router-dom";
 let apiEnvios = "https://back-json-server-martes.onrender.com/envios";
 
 function GestionEnvios() {
@@ -13,39 +14,43 @@ function GestionEnvios() {
   }
   useEffect(() => {
     getEnvios();
-}, []);
+  }, []);
 
   function filtrarEnviosUsuario() {
-    let enviosFiltrados = envios.filter((item) => item.usuarioId == usuarioLogueado.id);
+    let enviosFiltrados = envios.filter(
+      (item) => item.usuarioId == usuarioLogueado.id
+    );
     console.log(enviosFiltrados);
     return enviosFiltrados;
   }
 
   let enviosFiltrados = filtrarEnviosUsuario();
 
-  function eliminarEnvio(id){
-     alertaConfirmar(id, apiEnvios, getEnvios)
+  function eliminarEnvio(id) {
+    alertaConfirmar(id, apiEnvios, getEnvios);
   }
-  return(
+  return (
     <div className="cards">
-        {
-            enviosFiltrados.map((item) =>(
-                <div className="card">
-                    <p>Id Envío: {item.idEnvio}</p>
-                    <p>Nombre cliente: {usuarioLogueado.nombre}</p>
-                    <p>Producto: {item.producto} </p>
-                    <p>Destino: {item.destino}</p>
-                    <div className="card__buttons">
-                        <button className="card__button">Editar</button>
-                        <button onClick={() => eliminarEnvio(item.id)} className="card__button">Eliminar</button>         
-                    </div>
-
-                </div>
-            ))
-        }
+      {enviosFiltrados.map((item) => (
+        <div className="card">
+          <p>Id Envío: {item.idEnvio}</p>
+          <p>Nombre cliente: {usuarioLogueado.nombre}</p>
+          <p>Producto: {item.producto} </p>
+          <p>Destino: {item.destino}</p>
+          <div className="card__buttons">
+            <button
+              onClick={() => eliminarEnvio(item.id)}
+              className="card__button">
+              Eliminar
+            </button>
+            <Link to={"/home/editar/" + item.id} className="card__button">
+              Editar
+            </Link>
+          </div>
+        </div>
+      ))}
     </div>
-  )
-  
+  );
 }
 
 export default GestionEnvios;

@@ -292,6 +292,11 @@
   cursor: pointer;
   background: none;
   border: solid 1px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  text-decoration: none;
 }
 
 .cards__vacias {
